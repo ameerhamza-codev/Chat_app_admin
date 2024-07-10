@@ -1,0 +1,115 @@
+/* Dashboard.css */
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.dashboard {
+    display: flex;
+}
+
+/* Sidebar Styles */
+#sidebar {
+    width: 250px;
+    height: 100vh;
+    position: sticky; /* Keeps sidebar within its container */
+    top: 0;
+    overflow-x: hidden;
+    transition: width 0.3s;
+}
+
+.sidebar-header {
+    padding: 20px;
+    text-align: center;
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar-menu li {
+    padding: 15px 20px;
+    cursor: pointer;
+}
+
+.sidebar-menu li:hover {
+    background-color: #495057;
+}
+
+/* Main Content Styles */
+.main-content {
+    flex: 1; /* Takes up remaining space beside sidebar */
+    overflow-y: auto; /* Enable scrolling if content overflows */
+}
+
+.navbar {
+    background-color: #f8f9fa;
+    padding: 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    position: sticky; /* Sticky navbar */
+    top: 0;
+    z-index: 1;
+}
+
+.navbar-profile {
+    position: relative;
+}
+
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.profile-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 50px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.profile-menu.show {
+    display: block;
+}
+
+.profile-info {
+    padding: 10px;
+}
+
+.profile-info p {
+    margin: 0;
+    padding: 5px 0;
+}
+
+.profile-menu hr {
+    margin: 0;
+}
+
+.profile-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.profile-menu ul li {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.profile-menu ul li:hover {
+    background-color: #f1f1f1;
+}

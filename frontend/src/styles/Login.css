@@ -1,0 +1,14 @@
+:root {
+    --bg-color: ${colors.bg};
+}
+
+body {
+    background-color: var(--bg-color); /* Example usage of light color */
+}
+
+
+
+.card {
+    width: 100%;
+    max-width: 400px;
+}
