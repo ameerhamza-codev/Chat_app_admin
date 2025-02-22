@@ -10,7 +10,7 @@ const login = async (req, res) => {
     }
 
     try {
-        const [rows, fields] = await pool.query('SELECT * FROM Admin WHERE username = ?', [username]);
+        const [rows, fields] = await pool.query('SELECT * FROM admin WHERE username = ?', [username]);
 
         if (!rows || rows.length === 0) {
             return res.status(401).json({ message: 'User not found' });

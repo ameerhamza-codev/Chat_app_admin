@@ -12,6 +12,7 @@ const useAuth = () => {
         e.preventDefault();
         try {
             const response = await login({ username, password });
+            console.log(response);
             localStorage.setItem('token', response.data.token); 
             navigate('/dashboard');
         } catch (err) {
