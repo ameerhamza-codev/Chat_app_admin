@@ -2,6 +2,7 @@ import React from 'react';
 import { Nav, Accordion, Card , useAccordionButton} from 'react-bootstrap';
 import { AiOutlineHome } from 'react-icons/ai';
 import { TbUsersPlus, TbBriefcase, TbUserShare, TbUsersGroup} from 'react-icons/tb';
+import { FaBullhorn } from 'react-icons/fa';
 import { MdReportGmailerrorred, MdOutlineDescription, MdOutlineLocationOn, MdOutlineMap } from 'react-icons/md';
 import { GrDocumentUser } from 'react-icons/gr';
 import { HiOutlineDocumentReport } from 'react-icons/hi';
@@ -72,9 +73,6 @@ const Sidebar = () => {
                                     <Nav.Link as={Link} to="/dashboard/sub-group4" style={{color:colors.primary}}>
                                         Sub Group 4
                                     </Nav.Link>
-                                    <Nav.Link as={Link} to="/dashboard/sub-group5" style={{color:colors.primary}}>
-                                        Sub Group 5
-                                    </Nav.Link>
                                 </Nav>
                             </Card.Body>
                         </Accordion.Collapse>
@@ -119,6 +117,11 @@ const Sidebar = () => {
                     <Nav.Link as={Link} to="/dashboard/responsibility-type" className='text-light'>
                         <TbUserShare className="me-2" /> Resposibility Type
                     </Nav.Link>
+                </Nav.Item>
+                <Nav.Item className='mt-2'>
+                    <Nav.Link as={Link} to="/dashboard/announcement" className='text-light'>
+                    <FaBullhorn className="me-2" /> Announcement                
+                </Nav.Link>
                 </Nav.Item>
             </Nav>
         </div>

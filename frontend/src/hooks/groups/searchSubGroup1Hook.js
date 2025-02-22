@@ -1,32 +1,40 @@
 import { useState } from 'react';
 import { searchSubGroup1 } from '../../api/groupsApi';
 
-const useSearchSeubGroup1 = () => {
+const useSearchSubGroup1 = () => {
     const [query, setQuery] = useState('');
-    const [filter, setFilter] = useState('name');
+    const [filter, setFilter] = useState('');
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    const handleQueryChange = (e) => {
-        setQuery(e.target.value);
-    };
-
-    const handleFilterChange = (e) => {
-        setFilter(e.target.value);
-    };
-
     const handleSearch = async () => {
         setLoading(true);
         setError(null);
+    
+        // Check if the query is empty
+        if (!query.trim()) {
+            setResults([]); // Clear results
+            setLoading(false); // Stop loading
+            return;
+        }
+    
         try {
-            const data = await searchSubGroup1(query, filter);
-            setResults(data);
-        } catch (err) {
-            setError('Error searching users');
+            // Perform search if query is not empty
+            const response = await searchSubGroup1(query, filter || 'main_group_code');
+            setResults(response);
+        } catch (error) {
+            setError('Failed to fetch Sub Group 1');
         } finally {
             setLoading(false);
         }
+    };
+    
+
+    const handleFilterChange = (e) => {
+        setFilter(e.target.value);
+        setQuery(''); // Reset query when filter changes
+        setResults([]); // Clear results
     };
 
     return {
@@ -35,10 +43,11 @@ const useSearchSeubGroup1 = () => {
         results,
         loading,
         error,
-        handleQueryChange,
+        handleQueryChange: (e) => setQuery(e.target.value),
         handleFilterChange,
         handleSearch,
+        setResults,
     };
 };
 
-export default useSearchSeubGroup1;
+export default useSearchSubGroup1;

@@ -10,16 +10,18 @@ const useAuth = () => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
+        console.log('Attempting login with:', { email: username, password });
         try {
-            const response = await login({ username, password });
-            console.log(response);
-            localStorage.setItem('token', response.data.token); 
+            const response = await login({ email: username, password });
+            console.log('Login success:', response.data);
+            localStorage.setItem('token', response.data.token);
             navigate('/dashboard');
         } catch (err) {
-            console.error('Login failed', err);
+            console.error('Login failed:', err.response?.data || err.message);
             setError('Login failed. Please check your credentials and try again.');
         }
     };
+    
 
     return {
         username,

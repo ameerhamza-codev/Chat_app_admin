@@ -1,0 +1,83 @@
+/* Modal Header */
+.subGroupModal .modal-header {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    padding: 15px 20px;
+    border-bottom: 2px solid #0069d9;
+}
+
+/* Modal Tab Styling */
+.subGroupModal .nav-tabs {
+    border-bottom: 2px solid #007bff;
+    margin-bottom: 20px;
+}
+
+.subGroupModal .nav-tabs .nav-item .nav-link {
+    color: #007bff;
+    font-weight: bold;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.subGroupModal .nav-tabs .nav-item .nav-link.active {
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px 5px 0 0;
+}
+
+/* Modal Body */
+.subGroupModal .modal-body {
+    padding: 20px;
+    max-height: 400px;
+    overflow-y: auto;
+    margin-top: 10px;
+}
+
+/* Sub Group List Styling */
+.subGroupModal .modal-body h5 {
+    font-size: 18px;
+    margin-bottom: 5px;
+    color: #333;
+    font-weight: 600;
+}
+
+.subGroupModal .modal-body p {
+    font-size: 16px;
+    margin-left: 15px;
+    color: #555;
+    font-weight: 400;
+    margin-bottom: 15px;
+}
+
+/* Add some spacing to each subgroup */
+.subGroupModal .modal-body div {
+    margin-bottom: 10px;
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Styling the Modal */
+.subGroupModal .modal-dialog {
+    max-width: 700px;
+    margin: 30px auto;
+}
+
+.subGroupModal .modal-content {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Buttons */
+.subGroupModal button {
+    border-radius: 5px;
+    padding: 8px 20px;
+}
+
+/* Tab Spacing */
+.subGroupModal .nav-item {
+    margin-right: 10px;
+}

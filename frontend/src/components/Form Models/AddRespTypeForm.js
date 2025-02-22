@@ -1,21 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { colors } from '../../utils/colors';
 
-const AddRespTypeForm = ({ show, handleClose, handleSubmit }) => {
-    const [formData, setFormData] = useState({
-        name: '',
-    });
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-    };
-
+const AddRespTypeForm = ({ show, handleClose, handleSubmit, formData, handleChange }) => {
     const onSubmit = (e) => {
         e.preventDefault();
-        handleSubmit(formData);
-        handleClose();
+        handleSubmit(); // Submit the form using the hook
+        handleClose(); // Close the modal
     };
 
     return (
@@ -35,7 +26,12 @@ const AddRespTypeForm = ({ show, handleClose, handleSubmit }) => {
                             required
                         />
                     </Form.Group>
-                    <Button variant="primary" type="submit" className='btn btn-primary mt-3' style={{ backgroundColor: colors.secondary }}>
+                    <Button
+                        variant="primary"
+                        type="submit"
+                        className="btn btn-primary mt-3"
+                        style={{ backgroundColor: colors.secondary }}
+                    >
                         Submit
                     </Button>
                 </Form>

@@ -1,20 +1,18 @@
 const jwt = require('jsonwebtoken');
-require('dotenv/config');
-
 
 const authMiddleware = (req, res, next) => {
-    const token = req.headers['x-access-token'];
+    const token = req.header('x-access-token');
     if (!token) {
-        return res.status(401).json({ message: 'No token provided' });
+        return res.status(403).json({ message: 'Access denied. No token provided.' });
     }
 
-    jwt.verify(token, process.env.SECRET, (err, decoded) => {
-        if (err) {
-            return res.status(401).json({ message: 'Failed to authenticate token' });
-        }
-        req.userId = decoded.id;
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        req.user = decoded;
         next();
-    });
+    } catch (error) {
+        res.status(400).json({ message: 'Invalid token' });
+    }
 };
 
 module.exports = authMiddleware;

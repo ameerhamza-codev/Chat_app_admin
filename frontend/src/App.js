@@ -13,11 +13,11 @@ import MainGroups from './pages/MainGroups';
 import Occupations from './pages/Occupations';
 import Reports from './pages/Reports';
 import RespType from './pages/RespType';
+import Announce from './pages/Announce';
 import SubGroup1 from './pages/SubGroup1';
 import SubGroup2 from './pages/SubGroup2';
 import SubGroup3 from './pages/SubGroup3';
 import SubGroup4 from './pages/SubGroup4';
-import SubGroup5 from './pages/SubGroup5';
 import ErrorBoundary from './components/ErrorBoundary';
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -29,6 +29,7 @@ function App() {
                     <Route exact path='/dashboard' element={<ProtectedRoute/>}>
                         <Route exact path='/dashboard' element={<Dashboard/>}/>
                         <Route path="" element={<Dashboard />}>
+                            <Route path="announcement" element={<Announce />} />
                             <Route path="all-users" element={<AllUsers />} />
                             <Route path="invited-users" element={<InvitedUsers />} />
                             <Route path="main-groups" element={<MainGroups />} />
@@ -36,7 +37,6 @@ function App() {
                             <Route path="sub-group2" element={<SubGroup2 />} />
                             <Route path="sub-group3" element={<SubGroup3 />} />
                             <Route path="sub-group4" element={<SubGroup4 />} />
-                            <Route path="sub-group5" element={<SubGroup5 />} />
                             <Route path="reports" element={<Reports />} />
                             <Route path="abuse-reports" element={<AbuseReport />} />
                             <Route path="occupations" element={<Occupations />} />
@@ -45,7 +45,7 @@ function App() {
                             <Route path="job-description" element={<JobDescription />} />
                             <Route path="country" element={<Country />} />
                             <Route path="responsibility-type" element={<RespType />} />
-
+                            
                             {/* Add more nested routes here */}
                         </Route>
                     </Route>
