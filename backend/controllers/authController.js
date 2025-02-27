@@ -2,9 +2,13 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const db = require('../config/database');
 
-// Register User - now includes email for registration
+// Register User - now includes additional fields
 exports.registerUser = async (req, res) => {
-    const { username, email, password } = req.body;
+    const {
+        username, email, password, mainGroupCode, subGroup1Code, subGroup2Code, subGroup3Code, subGroup4Code,
+        name, fatherName, displayName, DOB, landline, companyName, workingCountry, 
+        workingCity, occupation, mobile, gender
+    } = req.body;
 
     try {
         // Hash the password
@@ -12,8 +16,11 @@ exports.registerUser = async (req, res) => {
 
         // Insert the user into the database
         const [result] = await db.query(
-            'INSERT INTO users (username, email, password) VALUES (?, ?, ?)',
-            [username, email, hashedPassword]
+            `INSERT INTO users (username, email, password, mainGroupCode, subGroup1Code, subGroup2Code, subGroup3Code, subGroup4Code, 
+             name, fatherName, displayName, DOB, landline, companyName, workingCountry, workingCity, occupation, mobile, gender) 
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+            [username, email, hashedPassword, mainGroupCode, subGroup1Code, subGroup2Code, subGroup3Code, subGroup4Code,
+            name, fatherName, displayName, DOB, landline, companyName, workingCountry, workingCity, occupation, mobile, gender]
         );
 
         res.status(201).json({ message: 'User registered successfully' });
@@ -23,11 +30,10 @@ exports.registerUser = async (req, res) => {
     }
 };
 
-// Login User - now updated to use email for login
+// Login User - now returns additional user details
 exports.loginUser = async (req, res) => {
-
     const { email, password } = req.body;
-console.log('Login Request Body:', req.body);
+    console.log('Login Request Body:', req.body);
     try {
         // Check if the user exists using email
         const [results] = await db.query('SELECT * FROM users WHERE email = ?', [email]);
@@ -48,7 +54,30 @@ console.log('Login Request Body:', req.body);
         // Create a JWT token if login is successful
         const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-        res.json({ token });
+        res.json({
+            token,
+            user: {
+                id: user.id,
+                username: user.username,
+                email: user.email,
+                mainGroupCode: user.mainGroupCode,
+                subGroup1Code: user.subGroup1Code,
+                subGroup2Code: user.subGroup2Code,
+                subGroup3Code: user.subGroup3Code,
+                subGroup4Code: user.subGroup4Code,
+                name: user.name,
+                fatherName: user.fatherName,
+                displayName: user.displayName,
+                DOB: user.DOB,
+                landline: user.landline,
+                companyName: user.companyName,
+                workingCountry: user.workingCountry,
+                workingCity: user.workingCity,
+                occupation: user.occupation,
+                mobile: user.mobile,
+                gender: user.gender
+            }
+        });
     } catch (err) {
         console.error('Login Error:', err);
         res.status(500).json({ error: 'Server error' });
@@ -57,7 +86,5 @@ console.log('Login Request Body:', req.body);
 
 // Logout User
 exports.logoutUser = (req, res) => {
-    // Since JWT is stateless, we can't invalidate it on the server.
-    // The client needs to handle the token deletion.
     res.json({ message: 'Logout successful' });
 };

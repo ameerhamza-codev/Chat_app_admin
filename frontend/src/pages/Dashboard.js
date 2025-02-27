@@ -1,20 +1,32 @@
-
-import React from 'react';
-import '../styles/Dashboard.css'; // Import Dashboard-specific styles
+import React, { useEffect, useState } from 'react';
+import '../styles/Dashboard.css';
 import profilePic from '../assets/profile.png';
-import { useNavigate , Outlet, useLocation} from 'react-router-dom';
+import { useNavigate, Outlet, useLocation } from 'react-router-dom';
 import { logout } from '../api/authApi';
-import Sidebar from '../components/Sidebar'; // Import Sidebar component
+import Sidebar from '../components/Sidebar';
 import { colors } from '../utils/colors';
 
 const Dashboard = () => {
     const navigate = useNavigate();
     const location = useLocation();
+    const [userEmail, setUserEmail] = useState('');
+
+    useEffect(() => {
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+            const parsedUser = JSON.parse(storedUser);
+            setUserEmail(parsedUser?.email || 'No Email Found');
+        } else {
+            setUserEmail('No Email Found');
+        }
+    }, []);
+    
 
     const handleLogout = async () => {
         try {
             await logout();
             localStorage.removeItem('token');
+            localStorage.removeItem('user'); // Remove user details on logout
             navigate('/login');
         } catch (err) {
             console.error('Logout failed', err);
@@ -22,7 +34,6 @@ const Dashboard = () => {
     };
 
     const isDashboardPath = location.pathname === '/dashboard';
-
 
     return (
         <div className="dashboard">
@@ -40,7 +51,7 @@ const Dashboard = () => {
                         <div id="profile-menu" className="profile-menu">
                             <div className="profile-info">
                                 <p>Admin</p>
-                                <p>admin@chatapp.com</p>
+                                <p>{userEmail || 'Loading...'}</p> {/* Display actual email */}
                             </div>
                             <hr />
                             <ul>

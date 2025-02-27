@@ -139,3 +139,15 @@ exports.updateUser = async (id, userData) => {
 };
 
 
+
+
+exports.getSingleUserDetail = async (id) => {
+    return db.query(
+        `SELECT  email, password, mainGroupCode, subGroup1Code, subGroup2Code, 
+                subGroup3Code, subGroup4Code, name, fatherName, displayName, DOB, 
+                landline, companyName, workingCountry, workingCity, occupation, 
+                mobile, gender 
+         FROM alluser WHERE id = ?`, 
+        [id]
+    );
+};

@@ -28,19 +28,24 @@ exports.getDropdownData = async (req, res) => {
 };
 
 exports.searchUsers = async (req, res) => {
-    const { keyword } = req.query;
-  
-    console.log("Search keyword:", keyword); // Log the incoming keyword
-  
-    try {
-      const [rows] = await userModel.searchUsers({ keyword });
-      console.log("Search results:", rows); // Log the results from the database
-      res.json(rows);
-    } catch (error) {
-      console.error("Error in searchUsers:", error.message);
-      res.status(500).json({ error: error.message });
+  const keyword = req.query.keyword || ""; // Ensure keyword is defined
+
+  console.log("Search keyword:", keyword); // Log the incoming keyword
+
+  try {
+    if (!keyword) {
+      return res.status(400).json({ error: "Keyword is required for search" });
     }
-  };
+
+    const [rows] = await userModel.searchUsers({ keyword });
+    console.log("Search results:", rows); // Log the results from the database
+    res.json(rows);
+  } catch (error) {
+    console.error("Error in searchUsers:", error.message);
+    res.status(500).json({ error: error.message });
+  }
+};
+
   
 exports.exportUsers = async (req, res) => {
     try {
@@ -124,5 +129,30 @@ exports.getAllUsers = async (req, res) => {
   }
 };
 
+exports.getSingleUserDetail = async (req, res) => {
+  const { id } = req.params; // Extract user ID from request parameters
+
+  try {
+      console.log("Fetching details for user ID:", id);
+
+      const [user] = await db.query(
+          `SELECT  email, password, mainGroupCode, subGroup1Code, subGroup2Code, 
+                  subGroup3Code, subGroup4Code, name, fatherName, displayName, DOB, 
+                  landline, companyName, workingCountry, workingCity, occupation, 
+                  mobile, gender 
+           FROM alluser WHERE id = ?`, 
+          [id]
+      );
+
+      if (user.length === 0) {
+          return res.status(404).json({ message: "User not found" });
+      }
+
+      res.status(200).json(user[0]); // Return the user details
+  } catch (error) {
+      console.error("Error in getSingleUserDetail:", error.message);
+      res.status(500).json({ error: error.message });
+  }
+};
 
 

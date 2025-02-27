@@ -27,6 +27,7 @@ const groupAccessRoute = require('./routes/groupAccessRoute');
 const groupRoutes = require('./routes/groupRoute');
 const announcementRoutes = require('./routes/announcementRoutes');
 const userAccessLevelRoutes = require('./routes/userAccessLevelRoutes');
+const chatRoute = require('./routes/chatRoute');
 const app = express();
 
 app.use(cors({ origin: 'http://localhost:3000' , credentials: true })); // Frontend URL
@@ -34,6 +35,7 @@ app.use(cors({ origin: 'http://localhost:3000' , credentials: true })); // Front
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.json());
 app.use('/api/auth', authRoute);
+app.use('/api/chat', chatRoute);
 app.use('/api', abuseReportsRouter);
 app.use('/api/reports', reportRoute);
 app.use('/api/group-access', groupAccessRoute);

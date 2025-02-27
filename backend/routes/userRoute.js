@@ -15,4 +15,9 @@ router.get('/user', userController.getAllUsers);
 // Search users
 router.get("/search", userController.searchUsers);
 router.get("/export", userController.exportUsers);
+
+router.get("/:id", userController.getSingleUserDetail);
+
+module.exports = router;
+
 module.exports = router;

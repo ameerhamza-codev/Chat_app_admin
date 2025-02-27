@@ -15,6 +15,7 @@ const useAuth = () => {
             const response = await login({ email: username, password });
             console.log('Login success:', response.data);
             localStorage.setItem('token', response.data.token);
+            localStorage.setItem('user', JSON.stringify(response.data.user)); // Store user object
             navigate('/dashboard');
         } catch (err) {
             console.error('Login failed:', err.response?.data || err.message);
